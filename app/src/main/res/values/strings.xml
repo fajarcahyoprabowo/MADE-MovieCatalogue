@@ -1,0 +1,87 @@
+<resources>
+    <string name="app_name">Movie Catalogue</string>
+    <string name="name_movies">Nama Film</string>
+    <string name="lorem">lorem ipsum dolor sit amet</string>
+    <string name="score">Skor</string>
+    <string name="overview">Kilasan Singkat</string>
+    <string name="release_date">Tanggal Rilis</string>
+    <string name="genre">Genre</string>
+
+    <array name="data_poster">
+        <item>@drawable/poster_a_star</item>
+        <item>@drawable/poster_aquaman</item>
+        <item>@drawable/poster_avengerinfinity</item>
+        <item>@drawable/poster_birdbox</item>
+        <item>@drawable/poster_bohemian</item>
+        <item>@drawable/poster_bumblebee</item>
+        <item>@drawable/poster_deadpool</item>
+        <item>@drawable/poster_dragon</item>
+        <item>@drawable/poster_preman</item>
+        <item>@drawable/poster_venom</item>
+    </array>
+
+    <string-array name="data_description">
+        <item>Seorang bintang musik country yang karirnya mulai memudar, Jackson Maine (Bradley Cooper) menemukan sebuah talenta yang sangat berbakat di dalam diri dari seorang musisi muda bernama Ally (Lady Gaga). Maine berhasil mengorbitkan Ally menjadi seorang bintang muda yang menjanjikan. Namun keduanya terlibat hubungan yang lebih jauh dari sekedar mentor dan anak didik. Seiring dengan meroketnya karir dari Ally dan dirinya, Maine mengalami dilema mengenai masalah ini.</item>
+        <item>Film Aquaman mengisahkan tentang perjalanan Arthur Curry (Jason Mamoa) dan Mera (Amber Heard) untuk merebut tahta atlantis dari sang kakak tiri, Orm (Patrick Wilson) yang berniat untuk menyerang dunia manusia dengan dibantu oleh Black Manta (Yahya Abdul-Mateen II). Pencarian mereka adalah untuk menemukan senjata Trident milik raja sejati Atlantis.</item>
+        <item>Karena Avengers dan sekutunya terus melindungi dunia dari ancaman yang terlalu besar untuk ditangani oleh seorang pahlawan, bahaya baru telah muncul dari bayangan kosmik: Thanos. Seorang lalim penghujatan intergalaksi, tujuannya adalah untuk mengumpulkan semua enam Batu Infinity, artefak kekuatan yang tak terbayangkan, dan menggunakannya untuk menimbulkan kehendak memutar pada semua realitas. Segala sesuatu yang telah diperjuangkan oleh Avengers telah berkembang hingga saat ini - nasib Bumi dan keberadaannya sendiri tidak pernah lebih pasti.</item>
+        <item>Lima tahun setelah kehadiran tak terlihat yang tak menyenangkan membuat sebagian besar masyarakat bunuh diri, seorang yang selamat dan dua anaknya melakukan upaya putus asa untuk mencapai keselamatan.</item>
+        <item>Berkisah tentang sejarah perjalanan band rock legendaris asal Inggris bernama Queen dengan berfokus pada vokalis sekaligus pianis, Freddie Mercury (Rami Malek). Menceritakan awal proses pembentukan grup band Queen, mulai dari saat Freddie Mercury berusaha untuk bergabung dengan band Brian May (Gwilym Lee) dan Roger Taylor (Ben Hardy) yang baru saja kehilangan vokalisnya. Setelah itu, sejumlah peristiwa kunci dari perjalanan karier Queen dan kehidupan Freddie Mercury pun mulai dibuka. Mulai dari proses penciptaan lagu "Bohemian Rhapsody" dan "We Will Rock You", saat Queen diremehkan, pertemuan Freddie dengan kekasih sekaligus sahabatnya, Mary Austin (Lucy Boynton) hingga pada saat Freddie mulai digerogoti oleh penyakit HIV/AIDS.</item>
+        <item>Berlatar waktu dua puluh tahun sebelum terjadinya peristiwa di film pertamanya. Pada tahun 1987, Bumblebee berlindung di sebuah tempat barang rongsokoan yang berada di kota pinggir pantai California. Dimana ia bertemu dengan seorang gadis remaja bernama Charile (Hailee Steinfeld) yang membawanya ke garasinya dan mendapati ternyata mobil kuning itu bukanlah mobil Volkswagen Beetle biasa. Namun, mereka berdua segera menemukan diri mereka diburu oleh sebuah badan pemerintah yang dikenal sebagai Sektor 7, dipimpin oleh Agen Burns (John Cena). Ketika mereka lari dari keramaian, mereka belajar bahwa bukan hanya Bee saja satu-satunya Transformer yang berada di bumi.</item>
+        <item>Film action berjudul “Deadpool” ini merupakan film yang bercerita tentang seorang pria yang berprofesi sebagai tentara bayaran bernama Wade Wilson ( Ryan Reynolds ). Wade yang sedang mengalami sakit sekarat karena kanker dan mendapatkan sebuah tawaran untuk percobaan perubahan genetik di mana bisa mengubah dirinya dan menjadi seorang superhero. Karena penyakit yang dideritanya, Wade akhirnya memutuskan untuk melakukan percobaan tersebut. Percobaan tersebut akhirnya membuat diri Wade berubah drastis dan menjadi seorang superhero yang dijuluki dengan Deadpool.</item>
+        <item>Ketika Hiccup memenuhi mimpinya untuk menciptakan utopia naga yang damai, penemuan Toothless \'dari pasangan yang tak teruji dan sukar ditangkap membuat Night Fury menjauh. Ketika bahaya meningkat di rumah dan pemerintahan Hiccup sebagai kepala desa diuji, baik naga dan pengendara harus membuat keputusan yang mustahil untuk menyelamatkan jenis mereka.</item>
+        <item>Gobang kembali ke Bandung, mengundang teman-temannya, para mantan preman untuk bertemu kembali. Mereka yang diundang adalah Ujang, Murad, Pipit, Cecep, Bohim, Mang Uu, Dikdik dan Joni. Dikdik kemudian tidak jadi datang karena masalah dengan istrinya. Dalam pertemuan yang disebut “reuni kecil-kecilan” itu, Gobang meminta bantuan teman-temannya untuk melakukan penyelidikan, siapa pelaku pembantaian terhadap adik iparnya hingga tewas. Pelaku pembantaian kemudian diketahui adalah Darman dan kawan-kawan yang hanya sebagai orang suruhan. Dalang di balik kejadian itu ternyata teman mereka sendiri, sesama bekas anak buah Muslihat (Epy Kusnandar) yang sebenarnya juga sudah pensiun. Muslihat mencoba mencegah terjadinya perang saudara, tapi Gobang sudah terlanjur datang dengan membawa dendam, “darah dibayar darah, nyawa dibayar nyaw</item>
+        <item>Seorang jurnalis, Eddie Brock (Tom Hardy) ingin melakukan sebuah investasi kasus terhadap penemuan yang dipimpin oleh Dr. Carlton Drake (Riz Ahmed). Karena investigasinya, Eddie mengunjungi lab milik Dr. Calrlton Drake. Semuanya ditujukan untuk membuktikan bahwa Dr. Carlton Drake sedang sedang melakukan tindakan jahat menggunakan Symbiote. Namun, sial bagi Eddie, organisme hidup ini masuk ke dalam tubuhnya. Eddie menemukan kekuatan super dalam dirinya yang mampu mengendalikan semua hal yang ia lakukan.</item>
+    </string-array>
+
+    <string-array name="data_name">
+        <item>A Star is Born</item>
+        <item>Aquaman</item>
+        <item>Avenger: Infinity War</item>
+        <item>Bird Box</item>
+        <item>Bohemian Rhapsody</item>
+        <item>Bumblebee</item>
+        <item>Deadpool</item>
+        <item>How to Train Your Dragon: The Hidden World</item>
+        <item>Preman Pensiun</item>
+        <item>Venom</item>
+    </string-array>
+
+    <string-array name="data_score">
+        <item>75%</item>
+        <item>68%</item>
+        <item>83%</item>
+        <item>70%</item>
+        <item>81%</item>
+        <item>65%</item>
+        <item>76%</item>
+        <item>77%</item>
+        <item>65%</item>
+        <item>66%</item>
+    </string-array>
+    
+    <string-array name="data_release_date">
+        <item>Oktober 5, 2018</item>
+        <item>Desember 21, 2018</item>
+        <item>April 23, 2018</item>
+        <item>November 12, 2018</item>
+        <item>Oktober 30, 2018</item>
+        <item>Desember 21, 2018</item>
+        <item>Februari 12, 2016</item>
+        <item>Februari 22, 2019</item>
+        <item>Januari 17, 2019</item>
+        <item>Oktober 1, 2018</item>
+    </string-array>
+
+    <string-array name="data_genre">
+        <item>Drama, Percintaan, Musik</item>
+        <item>Aksi, Petualangan, Fantasi</item>
+        <item>Petualangan, Aksi, Cerita Fiksi</item>
+        <item>Cerita Seru, Drama</item>
+        <item>Drama, Musik</item>
+        <item>Aksi, Petualangan, Cerita Fiksi</item>
+        <item>Aksi, Petualangan, Komedi</item>
+        <item>Animasi, Keluarga, Petualangan</item>
+        <item>Komedi, Drama</item>
+        <item>Cerita Fiksi, Aksi</item>
+    </string-array>
+</resources>
