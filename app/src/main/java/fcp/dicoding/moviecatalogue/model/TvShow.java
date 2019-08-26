@@ -1,9 +1,9 @@
-package fcp.dicoding.moviecatalogue;
+package fcp.dicoding.moviecatalogue.model;
 
 import android.os.Parcel;
 import android.os.Parcelable;
 
-public class Movie implements Parcelable {
+public class TvShow implements Parcelable {
     private int photo;
     private String name;
     private String description;
@@ -75,10 +75,10 @@ public class Movie implements Parcelable {
         dest.writeString(this.genre);
     }
 
-    public Movie() {
+    public TvShow() {
     }
 
-    protected Movie(Parcel in) {
+    private TvShow(Parcel in) {
         this.photo = in.readInt();
         this.name = in.readString();
         this.description = in.readString();
@@ -87,15 +87,15 @@ public class Movie implements Parcelable {
         this.genre = in.readString();
     }
 
-    public static final Parcelable.Creator<Movie> CREATOR = new Parcelable.Creator<Movie>() {
+    public static final Parcelable.Creator<TvShow> CREATOR = new Parcelable.Creator<TvShow>() {
         @Override
-        public Movie createFromParcel(Parcel source) {
-            return new Movie(source);
+        public TvShow createFromParcel(Parcel source) {
+            return new TvShow(source);
         }
 
         @Override
-        public Movie[] newArray(int size) {
-            return new Movie[size];
+        public TvShow[] newArray(int size) {
+            return new TvShow[size];
         }
     };
 }

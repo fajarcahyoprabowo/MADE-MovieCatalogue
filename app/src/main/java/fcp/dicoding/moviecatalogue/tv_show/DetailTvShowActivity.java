@@ -1,4 +1,4 @@
-package fcp.dicoding.moviecatalogue;
+package fcp.dicoding.moviecatalogue.tv_show;
 
 import android.os.Bundle;
 import android.view.MenuItem;
@@ -8,16 +8,20 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
-public class DetailActivity extends AppCompatActivity {
-    public static final String EXTRA_MOVIE = "extra_movie";
+import fcp.dicoding.moviecatalogue.R;
+import fcp.dicoding.moviecatalogue.model.TvShow;
+
+public class DetailTvShowActivity extends AppCompatActivity {
+    public static final String EXTRA_TV_SHOW = "extra_tv_show";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_detail);
+        setContentView(R.layout.activity_detail_tv_show);
 
         if (getSupportActionBar() != null) {
             getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+            getSupportActionBar().setTitle(getResources().getString(R.string.tv_shows));
         }
 
         ImageView imgPhoto = findViewById(R.id.img_photo);
@@ -27,17 +31,17 @@ public class DetailActivity extends AppCompatActivity {
         TextView tvGenre = findViewById(R.id.tv_genre);
         TextView tvDescription = findViewById(R.id.tv_description);
 
-        Movie movie = getIntent().getParcelableExtra(EXTRA_MOVIE);
+        TvShow tvShow = getIntent().getParcelableExtra(EXTRA_TV_SHOW);
 
-        if (movie != null) {
-            getSupportActionBar().setSubtitle(movie.getName());
+        if (tvShow != null) {
+            getSupportActionBar().setSubtitle(tvShow.getName());
 
-            imgPhoto.setImageResource(movie.getPhoto());
-            tvName.setText(movie.getName());
-            tvScore.setText(String.format("Skor: %s", movie.getScore()));
-            tvReleaseDate.setText(movie.getReleaseDate());
-            tvGenre.setText(movie.getGenre());
-            tvDescription.setText(movie.getDescription());
+            imgPhoto.setImageResource(tvShow.getPhoto());
+            tvName.setText(tvShow.getName());
+            tvScore.setText(String.format(getResources().getString(R.string.score) + ": %s", tvShow.getScore()));
+            tvReleaseDate.setText(tvShow.getReleaseDate());
+            tvGenre.setText(tvShow.getGenre());
+            tvDescription.setText(tvShow.getDescription());
         }
     }
 

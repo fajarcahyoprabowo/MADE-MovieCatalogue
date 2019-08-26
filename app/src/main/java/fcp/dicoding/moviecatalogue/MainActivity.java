@@ -1,73 +1,68 @@
 package fcp.dicoding.moviecatalogue;
 
 import android.content.Intent;
-import android.content.res.TypedArray;
 import android.os.Bundle;
-import android.view.View;
-import android.widget.AdapterView;
-import android.widget.ListView;
+import android.provider.Settings;
+import android.view.Menu;
+import android.view.MenuItem;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.viewpager.widget.ViewPager;
 
-import java.util.ArrayList;
+import com.google.android.material.tabs.TabLayout;
 
-public class MainActivity extends AppCompatActivity {
+import fcp.dicoding.moviecatalogue.adapter.MainPageAdapter;
 
-    private String[] dataName;
-    private String[] dataDescription;
-    private String[] dataScore;
-    private String[] dataReleaseDate;
-    private String[] dataGenre;
-    private TypedArray dataPhoto;
-    private MovieAdapter adapter;
-    private ArrayList<Movie> movies;
+public class MainActivity extends AppCompatActivity implements TabLayout.BaseOnTabSelectedListener {
+    private ViewPager viewPager;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        ListView lvMovie = findViewById(R.id.lv_movie);
-
-        adapter = new MovieAdapter(this);
-        lvMovie.setAdapter(adapter);
-
-        prepare();
-        addItem();
-
-        lvMovie.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-            @Override
-            public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
-                Intent intent = new Intent(MainActivity.this, DetailActivity.class);
-                intent.putExtra(DetailActivity.EXTRA_MOVIE, movies.get(i));
-                startActivity(intent);
-            }
-        });
-    }
-
-    private void prepare() {
-        dataName = getResources().getStringArray(R.array.data_name);
-        dataDescription = getResources().getStringArray(R.array.data_description);
-        dataPhoto = getResources().obtainTypedArray(R.array.data_poster);
-        dataScore = getResources().getStringArray(R.array.data_score);
-        dataReleaseDate = getResources().getStringArray(R.array.data_release_date);
-        dataGenre = getResources().getStringArray(R.array.data_genre);
-    }
-
-    private void addItem() {
-        movies = new ArrayList<>();
-
-        for (int i = 0; i < dataName.length; i++) {
-            Movie movie = new Movie();
-            movie.setPhoto(dataPhoto.getResourceId(i, -1));
-            movie.setName(dataName[i]);
-            movie.setDescription(dataDescription[i]);
-            movie.setScore(dataScore[i]);
-            movie.setReleaseDate(dataReleaseDate[i]);
-            movie.setGenre(dataGenre[i]);
-            movies.add(movie);
+        if (getSupportActionBar() != null) {
+            getSupportActionBar().setElevation(0);
         }
 
-        adapter.setMovies(movies);
+        TabLayout tabLayout = findViewById(R.id.tab_layout);
+        viewPager = findViewById(R.id.view_pager);
+
+        MainPageAdapter mainPageAdapter = new MainPageAdapter(getSupportFragmentManager(), tabLayout.getTabCount());
+
+        viewPager.setAdapter(mainPageAdapter);
+        viewPager.addOnPageChangeListener(new TabLayout.TabLayoutOnPageChangeListener(tabLayout));
+        tabLayout.addOnTabSelectedListener(this);
+    }
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        getMenuInflater().inflate(R.menu.menu_main, menu);
+        return super.onCreateOptionsMenu(menu);
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(@NonNull MenuItem item) {
+        if (item.getItemId() == R.id.action_change_settings){
+            Intent mIntent = new Intent(Settings.ACTION_LOCALE_SETTINGS);
+            startActivity(mIntent);
+        }
+        return super.onOptionsItemSelected(item);
+    }
+
+    @Override
+    public void onTabSelected(TabLayout.Tab tab) {
+        viewPager.setCurrentItem(tab.getPosition());
+    }
+
+    @Override
+    public void onTabUnselected(TabLayout.Tab tab) {
+
+    }
+
+    @Override
+    public void onTabReselected(TabLayout.Tab tab) {
+
     }
 }
