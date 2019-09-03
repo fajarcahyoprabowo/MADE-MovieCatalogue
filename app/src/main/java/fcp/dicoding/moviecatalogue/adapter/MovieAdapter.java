@@ -14,15 +14,22 @@ import com.bumptech.glide.request.RequestOptions;
 
 import java.util.ArrayList;
 
+import fcp.dicoding.moviecatalogue.BuildConfig;
 import fcp.dicoding.moviecatalogue.R;
-import fcp.dicoding.moviecatalogue.model.Movie;
+import fcp.dicoding.moviecatalogue.model.movie.Movie;
 
 public class MovieAdapter extends RecyclerView.Adapter<MovieAdapter.ViewHolder> {
     private ArrayList<Movie> movies;
     private OnItemClickCallback onItemClickCallback;
 
-    public MovieAdapter(ArrayList<Movie> movies) {
-        this.movies = movies;
+    public MovieAdapter() {
+        movies = new ArrayList<>();
+    }
+
+    public void setData(ArrayList<Movie> data) {
+        movies.clear();
+        movies.addAll(data);
+        this.notifyDataSetChanged();
     }
 
     public void setOnItemClickCallback(OnItemClickCallback onItemClickCallback) {
@@ -40,12 +47,21 @@ public class MovieAdapter extends RecyclerView.Adapter<MovieAdapter.ViewHolder> 
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
         final Movie movie = movies.get(position);
 
-        holder.tvName.setText(movie.getName());
-        holder.tvGenre.setText(movie.getGenre());
-        holder.tvDescription.setText(movie.getDescription());
+        holder.tvScore.setText(String.valueOf(movie.getVoteAverage()));
+        holder.tvYear.setText(movie.getReleaseDate().substring(0, 4));
+        holder.tvName.setText(movie.getOriginalTitle());
+
+        StringBuilder genreBuilder = new StringBuilder();
+        for (String item : movie.getGenres()) {
+            genreBuilder.append(item).append(", ");
+        }
+        String genre = genreBuilder.toString();
+        holder.tvGenre.setText(genre.substring(0, genre.length() - 2));
+
+        holder.tvDescription.setText(movie.getOverview());
         Glide.with(holder.itemView.getContext())
-                .load(movie.getPhoto())
-                .apply(new RequestOptions().override(100,150))
+                .load(BuildConfig.BASE_URL_IMAGE + "/w185/" + movie.getPosterPath())
+                .apply(new RequestOptions().override(100, 150))
                 .into(holder.imgPhoto);
 
         holder.itemView.setOnClickListener(new View.OnClickListener() {
@@ -62,11 +78,13 @@ public class MovieAdapter extends RecyclerView.Adapter<MovieAdapter.ViewHolder> 
     }
 
     class ViewHolder extends RecyclerView.ViewHolder {
-        private TextView tvName, tvGenre, tvDescription;
+        private TextView tvScore, tvYear, tvName, tvGenre, tvDescription;
         private ImageView imgPhoto;
 
         ViewHolder(@NonNull View itemView) {
             super(itemView);
+            tvScore = itemView.findViewById(R.id.tv_score);
+            tvYear = itemView.findViewById(R.id.tv_year);
             tvName = itemView.findViewById(R.id.tv_name);
             tvGenre = itemView.findViewById(R.id.tv_genre);
             tvDescription = itemView.findViewById(R.id.tv_description);

@@ -14,15 +14,22 @@ import com.bumptech.glide.request.RequestOptions;
 
 import java.util.ArrayList;
 
+import fcp.dicoding.moviecatalogue.BuildConfig;
 import fcp.dicoding.moviecatalogue.R;
-import fcp.dicoding.moviecatalogue.model.TvShow;
+import fcp.dicoding.moviecatalogue.model.tv_show.TvShow;
 
-public class TvShowAdapter extends RecyclerView.Adapter<TvShowAdapter.ViewHolder>{
-    private ArrayList<TvShow> tvShows;
+public class TvShowAdapter extends RecyclerView.Adapter<TvShowAdapter.ViewHolder> {
+    private ArrayList<TvShow> mListTvShow;
     private OnItemClickCallback onItemClickCallback;
 
-    public TvShowAdapter(ArrayList<TvShow> tvShows) {
-        this.tvShows = tvShows;
+    public TvShowAdapter() {
+        mListTvShow = new ArrayList<>();
+    }
+
+    public void setData(ArrayList<TvShow> listTvShow) {
+        mListTvShow.clear();
+        mListTvShow.addAll(listTvShow);
+        notifyDataSetChanged();
     }
 
     public void setOnItemClickCallback(OnItemClickCallback onItemClickCallback) {
@@ -38,14 +45,24 @@ public class TvShowAdapter extends RecyclerView.Adapter<TvShowAdapter.ViewHolder
 
     @Override
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
-        final TvShow tvShow = tvShows.get(position);
+        final TvShow tvShow = mListTvShow.get(position);
 
-        holder.tvName.setText(tvShow.getName());
-        holder.tvGenre.setText(tvShow.getGenre());
-        holder.tvDescription.setText(tvShow.getDescription());
+        holder.tvScore.setText(String.valueOf(tvShow.getVoteAverage()));
+        holder.tvYear.setText(tvShow.getFirstAirDate().substring(0, 4));
+        holder.tvName.setText(tvShow.getOriginalName());
+
+        StringBuilder genreBuilder = new StringBuilder();
+        for (String item : tvShow.getGenres()) {
+            genreBuilder.append(item).append(", ");
+        }
+        String genre = genreBuilder.toString();
+        holder.tvGenre.setText(genre.substring(0, genre.length() - 2));
+
+        holder.tvDescription.setText(tvShow.getOverview());
+
         Glide.with(holder.itemView.getContext())
-                .load(tvShow.getPhoto())
-                .apply(new RequestOptions().override(100,150))
+                .load(BuildConfig.BASE_URL_IMAGE + "/w185/" + tvShow.getPosterPath())
+                .apply(new RequestOptions().override(100, 150))
                 .into(holder.imgPhoto);
 
         holder.itemView.setOnClickListener(new View.OnClickListener() {
@@ -58,15 +75,17 @@ public class TvShowAdapter extends RecyclerView.Adapter<TvShowAdapter.ViewHolder
 
     @Override
     public int getItemCount() {
-        return tvShows.size();
+        return mListTvShow.size();
     }
 
     class ViewHolder extends RecyclerView.ViewHolder {
-        private TextView tvName, tvGenre, tvDescription;
+        private TextView tvScore, tvYear, tvName, tvGenre, tvDescription;
         private ImageView imgPhoto;
 
         ViewHolder(@NonNull View itemView) {
             super(itemView);
+            tvScore = itemView.findViewById(R.id.tv_score);
+            tvYear = itemView.findViewById(R.id.tv_year);
             tvName = itemView.findViewById(R.id.tv_name);
             tvGenre = itemView.findViewById(R.id.tv_genre);
             tvDescription = itemView.findViewById(R.id.tv_description);

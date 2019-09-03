@@ -25,12 +25,53 @@
             app:layout_constraintTop_toTopOf="parent"
             android:contentDescription="@string/image_of_movie" />
 
+        <LinearLayout
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:background="#80795548"
+            android:orientation="horizontal"
+            app:layout_constraintBottom_toBottomOf="@+id/img_photo"
+            app:layout_constraintEnd_toEndOf="@+id/img_photo"
+            app:layout_constraintStart_toStartOf="@+id/img_photo">
+
+            <ImageView
+                android:id="@+id/imageView3"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_vertical"
+                app:srcCompat="@drawable/ic_rating_yellow"
+                android:contentDescription="@string/score" />
+
+            <TextView
+                android:id="@+id/tv_score"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="2dp"
+                android:layout_weight="0.5"
+                android:text="@string/score"
+                android:textColor="#ffffff"
+                android:textSize="12sp" />
+
+            <TextView
+                android:id="@+id/tv_year"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginEnd="2dp"
+                android:layout_weight="0.5"
+                android:text="@string/year"
+                android:textAlignment="textEnd"
+                android:textColor="#ffffff"
+                android:textSize="12sp" />
+        </LinearLayout>
+
         <TextView
             android:id="@+id/tv_genre"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginStart="24dp"
+            android:layout_marginEnd="16dp"
             android:text="@string/lorem"
+            android:textSize="12sp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toEndOf="@+id/img_photo"
             app:layout_constraintTop_toBottomOf="@+id/tv_name" />
@@ -41,10 +82,10 @@
             android:layout_height="wrap_content"
             android:layout_marginStart="24dp"
             android:layout_marginTop="8dp"
-            android:layout_marginEnd="8dp"
+            android:layout_marginEnd="16dp"
             android:text="@string/name_movie"
             android:textColor="#000000"
-            android:textSize="18sp"
+            android:textSize="16sp"
             android:textStyle="bold"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toEndOf="@+id/img_photo"
@@ -57,10 +98,10 @@
             android:layout_below="@id/tv_name"
             android:layout_marginStart="24dp"
             android:layout_marginTop="10dp"
-            android:layout_marginEnd="8dp"
+            android:layout_marginEnd="16dp"
             android:layout_marginBottom="2dp"
             android:ellipsize="end"
-            android:maxLines="4"
+            android:maxLines="3"
             android:text="@string/lorem"
             app:layout_constraintBottom_toBottomOf="@+id/img_photo"
             app:layout_constraintEnd_toEndOf="parent"

@@ -4,8 +4,8 @@ import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentPagerAdapter;
 
-import fcp.dicoding.moviecatalogue.movie.MovieListFragment;
-import fcp.dicoding.moviecatalogue.tv_show.TvShowListFragment;
+import fcp.dicoding.moviecatalogue.ui.fragment.MovieListFragment;
+import fcp.dicoding.moviecatalogue.ui.fragment.TvShowListFragment;
 
 public class MainPageAdapter extends FragmentPagerAdapter {
 

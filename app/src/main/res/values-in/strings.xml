@@ -11,85 +11,9 @@
     <string name="release_date">Tanggal Rilis</string>
     <string name="genre">Genre</string>
     <string name="change_language">Ubah Pengaturan Bahasa</string>
+    <string name="language">id-ID</string>
+    <string name="error_load_data">Terjadi Kesalahan: Data tidak dapat dimuat.</string>
 
     <string name="image_of_movie">Poster Film</string>
     <string name="image_of_tv_show">Poster Serial TV</string>
-
-    <string-array name="data_movie_description">
-        <item>Seorang bintang musik country yang karirnya mulai memudar, Jackson Maine (Bradley Cooper) menemukan sebuah talenta yang sangat berbakat di dalam diri dari seorang musisi muda bernama Ally (Lady Gaga). Maine berhasil mengorbitkan Ally menjadi seorang bintang muda yang menjanjikan. Namun keduanya terlibat hubungan yang lebih jauh dari sekedar mentor dan anak didik. Seiring dengan meroketnya karir dari Ally dan dirinya, Maine mengalami dilema mengenai masalah ini.</item>
-        <item>Film Aquaman mengisahkan tentang perjalanan Arthur Curry (Jason Mamoa) dan Mera (Amber Heard) untuk merebut tahta atlantis dari sang kakak tiri, Orm (Patrick Wilson) yang berniat untuk menyerang dunia manusia dengan dibantu oleh Black Manta (Yahya Abdul-Mateen II). Pencarian mereka adalah untuk menemukan senjata Trident milik raja sejati Atlantis.</item>
-        <item>Karena Avengers dan sekutunya terus melindungi dunia dari ancaman yang terlalu besar untuk ditangani oleh seorang pahlawan, bahaya baru telah muncul dari bayangan kosmik: Thanos. Seorang lalim penghujatan intergalaksi, tujuannya adalah untuk mengumpulkan semua enam Batu Infinity, artefak kekuatan yang tak terbayangkan, dan menggunakannya untuk menimbulkan kehendak memutar pada semua realitas. Segala sesuatu yang telah diperjuangkan oleh Avengers telah berkembang hingga saat ini - nasib Bumi dan keberadaannya sendiri tidak pernah lebih pasti.</item>
-        <item>Lima tahun setelah kehadiran tak terlihat yang tak menyenangkan membuat sebagian besar masyarakat bunuh diri, seorang yang selamat dan dua anaknya melakukan upaya putus asa untuk mencapai keselamatan.</item>
-        <item>Berkisah tentang sejarah perjalanan band rock legendaris asal Inggris bernama Queen dengan berfokus pada vokalis sekaligus pianis, Freddie Mercury (Rami Malek). Menceritakan awal proses pembentukan grup band Queen, mulai dari saat Freddie Mercury berusaha untuk bergabung dengan band Brian May (Gwilym Lee) dan Roger Taylor (Ben Hardy) yang baru saja kehilangan vokalisnya. Setelah itu, sejumlah peristiwa kunci dari perjalanan karier Queen dan kehidupan Freddie Mercury pun mulai dibuka. Mulai dari proses penciptaan lagu "Bohemian Rhapsody" dan "We Will Rock You", saat Queen diremehkan, pertemuan Freddie dengan kekasih sekaligus sahabatnya, Mary Austin (Lucy Boynton) hingga pada saat Freddie mulai digerogoti oleh penyakit HIV/AIDS.</item>
-        <item>Berlatar waktu dua puluh tahun sebelum terjadinya peristiwa di film pertamanya. Pada tahun 1987, Bumblebee berlindung di sebuah tempat barang rongsokoan yang berada di kota pinggir pantai California. Dimana ia bertemu dengan seorang gadis remaja bernama Charile (Hailee Steinfeld) yang membawanya ke garasinya dan mendapati ternyata mobil kuning itu bukanlah mobil Volkswagen Beetle biasa. Namun, mereka berdua segera menemukan diri mereka diburu oleh sebuah badan pemerintah yang dikenal sebagai Sektor 7, dipimpin oleh Agen Burns (John Cena). Ketika mereka lari dari keramaian, mereka belajar bahwa bukan hanya Bee saja satu-satunya Transformer yang berada di bumi.</item>
-        <item>Film action berjudul “Deadpool” ini merupakan film yang bercerita tentang seorang pria yang berprofesi sebagai tentara bayaran bernama Wade Wilson ( Ryan Reynolds ). Wade yang sedang mengalami sakit sekarat karena kanker dan mendapatkan sebuah tawaran untuk percobaan perubahan genetik di mana bisa mengubah dirinya dan menjadi seorang superhero. Karena penyakit yang dideritanya, Wade akhirnya memutuskan untuk melakukan percobaan tersebut. Percobaan tersebut akhirnya membuat diri Wade berubah drastis dan menjadi seorang superhero yang dijuluki dengan Deadpool.</item>
-        <item>Ketika Hiccup memenuhi mimpinya untuk menciptakan utopia naga yang damai, penemuan Toothless \'dari pasangan yang tak teruji dan sukar ditangkap membuat Night Fury menjauh. Ketika bahaya meningkat di rumah dan pemerintahan Hiccup sebagai kepala desa diuji, baik naga dan pengendara harus membuat keputusan yang mustahil untuk menyelamatkan jenis mereka.</item>
-        <item>Gobang kembali ke Bandung, mengundang teman-temannya, para mantan preman untuk bertemu kembali. Mereka yang diundang adalah Ujang, Murad, Pipit, Cecep, Bohim, Mang Uu, Dikdik dan Joni. Dikdik kemudian tidak jadi datang karena masalah dengan istrinya. Dalam pertemuan yang disebut “reuni kecil-kecilan” itu, Gobang meminta bantuan teman-temannya untuk melakukan penyelidikan, siapa pelaku pembantaian terhadap adik iparnya hingga tewas. Pelaku pembantaian kemudian diketahui adalah Darman dan kawan-kawan yang hanya sebagai orang suruhan. Dalang di balik kejadian itu ternyata teman mereka sendiri, sesama bekas anak buah Muslihat (Epy Kusnandar) yang sebenarnya juga sudah pensiun. Muslihat mencoba mencegah terjadinya perang saudara, tapi Gobang sudah terlanjur datang dengan membawa dendam, “darah dibayar darah, nyawa dibayar nyaw</item>
-        <item>Seorang jurnalis, Eddie Brock (Tom Hardy) ingin melakukan sebuah investasi kasus terhadap penemuan yang dipimpin oleh Dr. Carlton Drake (Riz Ahmed). Karena investigasinya, Eddie mengunjungi lab milik Dr. Calrlton Drake. Semuanya ditujukan untuk membuktikan bahwa Dr. Carlton Drake sedang sedang melakukan tindakan jahat menggunakan Symbiote. Namun, sial bagi Eddie, organisme hidup ini masuk ke dalam tubuhnya. Eddie menemukan kekuatan super dalam dirinya yang mampu mengendalikan semua hal yang ia lakukan.</item>
-    </string-array>
-
-    <string-array name="data_movie_release_date">
-        <item>Oktober 5, 2018</item>
-        <item>Desember 21, 2018</item>
-        <item>April 23, 2018</item>
-        <item>November 12, 2018</item>
-        <item>Oktober 30, 2018</item>
-        <item>Desember 21, 2018</item>
-        <item>Februari 12, 2016</item>
-        <item>Februari 22, 2019</item>
-        <item>Januari 17, 2019</item>
-        <item>Oktober 1, 2018</item>
-    </string-array>
-
-    <string-array name="data_movie_genre">
-        <item>Drama, Percintaan, Musik</item>
-        <item>Aksi, Petualangan, Fantasi</item>
-        <item>Petualangan, Aksi, Cerita Fiksi</item>
-        <item>Cerita Seru, Drama</item>
-        <item>Drama, Musik</item>
-        <item>Aksi, Petualangan, Cerita Fiksi</item>
-        <item>Aksi, Petualangan, Komedi</item>
-        <item>Animasi, Keluarga, Petualangan</item>
-        <item>Komedi, Drama</item>
-        <item>Cerita Fiksi, Aksi</item>
-    </string-array>
-
-    <string-array name="data_tv_description">
-        <item>Danny Rand muncul kembali 15 tahun setelah dianggap mati. Sekarang, dengan kekuatan Iron Fist, ia berusaha untuk merebut kembali masa lalunya dan memenuhi takdirnya.</item>
-        <item>Naruto Shippuuden adalah kelanjutan dari serial TV animasi asli Naruto. Kisah ini berkisah tentang Uzumaki Naruto yang lebih tua dan sedikit lebih matang dan upayanya untuk menyelamatkan temannya Uchiha Sasuke dari cengkeraman Shinobi seperti ular, Orochimaru. Setelah 2 setengah tahun, Naruto akhirnya kembali ke desanya Konoha, dan mulai mewujudkan ambisinya, meskipun itu tidak akan mudah, karena Ia telah mengumpulkan beberapa musuh (lebih berbahaya), seperti organisasi shinobi. ; Akatsuki.</item>
-        <item>Dari pembunuhan dan spionase hingga terorisme dan kapal selam curian, tim agen khusus menyelidiki kejahatan apa pun yang memiliki sedikit bukti yang terhubung dengan personel Angkatan Laut dan Korps Marinir, terlepas dari pangkat atau posisi.</item>
-        <item>Berada di masa kini, seri ini menawarkan pandangan yang berani dan subversif pada Archie, Betty, Veronica dan teman-teman mereka, menjelajahi surreality kehidupan kota kecil, kegelapan dan keanehan yang meluap-luap di bawah fasad Riverdale yang sehat.</item>
-        <item>Shameless merupakan sebuah Tv series remake dari Tv series aslinya yang berasal dari UK yang berjudul sama. Shameless pada intinya menceritakan tentang kehidupan keluarga Gallagher yang keras dan kasar dari sebuah kehidupan. Ada Fiona Gallagher, Philip Gallagher, Ian Gallagher, Debbie Gallagher, Carl Gallagher, dan Liam Gallagher yang dimana mereka semua adalah anak dari seorang pemabuk Frank Gallagher dan pengidap biopolar Monica Gallagher.</item>
-        <item>Kara Zor-El, 24 tahun, yang ditangkap oleh keluarga Danvers ketika dia berusia 13 tahun setelah diusir dari Krypton, harus belajar merangkul kekuatannya setelah sebelumnya menyembunyikannya. Danvers mengajarinya untuk berhati-hati dengan kekuatannya, sampai dia harus mengungkapkannya selama bencana yang tak terduga, menempatkannya dalam perjalanan kepahlawanannya.</item>
-        <item>Dua bersaudara mencari ayah mereka yang hilang, pria yang melatih mereka untuk menjadi prajurit melawan kejahatan supernatural</item>
-        <item>Bertempat di Springfield, kota rata-rata di Amerika, pertunjukan ini berfokus pada kejenakaan dan petualangan sehari-hari keluarga Simpson; Homer, Marge, Bart, Lisa dan Maggie, serta ribuan pemain virtual. Sejak awal, serial ini telah menjadi ikon budaya pop, menarik ratusan selebriti menjadi bintang tamu. Serial ini juga menjadi terkenal karena satirnya yang tak kenal takut terhadap kehidupan politik, media, dan Amerika secara umum.</item>
-        <item>Keluarga pahlawan super yang disfungsional berkumpul untuk memecahkan misteri kematian ayah mereka, ancaman kiamat, dan banyak lagi.</item>
-        <item>Wakil Sheriff Rick Grimes terbangun dari koma untuk menemukan dunia pasca-apokaliptik yang didominasi oleh zombie pemakan daging. Dia berangkat untuk menemukan keluarganya dan bertemu banyak penyintas lainnya di sepanjang jalan.</item>
-    </string-array>
-
-    <string-array name="data_tv_release_date">
-        <item>Maret 17, 2017</item>
-        <item>Februari 15, 2007</item>
-        <item>September 23, 2003</item>
-        <item>Januari 26, 2017</item>
-        <item>Januari 9, 2011</item>
-        <item>Oktober 26, 2015</item>
-        <item>September 13, 2005</item>
-        <item>Desember 17, 1989</item>
-        <item>Februari 15, 2019</item>
-        <item>Oktober 31, 2010</item>
-    </string-array>
-
-    <string-array name="data_tv_genre">
-        <item>Aksi &amp; Petualangan, Kejahatan, Drama, Sci-Fi &amp; Fantasi</item>
-        <item>Animasi, Komedi, Drama</item>
-        <item>Aksi &amp; Petualangan, Kejahatan, Drama</item>
-        <item>Drama, Misteri</item>
-        <item>Drama, Komedi</item>
-        <item>Aksi, Petualangan, Drama, Fiksi Ilmiah</item>
-        <item>Drama, Misteri, Sci-Fi &amp; Fantasi</item>
-        <item>Animasi, Komedi</item>
-        <item>Aksi &amp; Petualangan, Sci-Fi &amp; Fantasi</item>
-        <item>Aksi &amp; Petualangan, Drama, Sci-Fi &amp; Fantasi</item>
-    </string-array>
 </resources>
