@@ -1,20 +1,30 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <string name="app_name">Movie Catalogue</string>
-    <string name="movies">Movie</string>
-    <string name="tv_shows">TV Show</string>
+    <string name="movie">Movie</string>
+    <string name="tv_show">TV Show</string>
     <string name="name_movie">Movie Name</string>
     <string name="name_tv_show">TV Show Name</string>
     <string name="lorem">lorem ipsum dolor sit amet</string>
     <string name="score">Score</string>
     <string name="overview">Overview</string>
-    <string name="release_date">Release Date</string>
     <string name="genre">Genre</string>
     <string name="change_language">Change Language Setting</string>
     <string name="language">en-EN</string>
-    <string name="error_load_data">Error Occurs: Data could not be loaded.</string>
+    <string name="error_load_data">Data could not be loaded.</string>
+    <string name="error_load_detail_movie">Unable to load details of the selected movie</string>
+    <string name="error_load_detail_tv_show">Unable to load details of the selected tv show</string>
+    <string name="error_add_fav_movie">Cannot add movie to favorite list</string>
+    <string name="error_add_fav_tv_show">Cannot add tv show to favorite list</string>
+    <string name="error_delete_fav_movie">Cannot delete movie from favorite</string>
+    <string name="error_delete_fav_tv_show">Cannot delete tv show from favorite</string>
+    <string name="add_to_favorite">Add To Favorite</string>
+    <string name="delete_from_favorite">Delete From Favorite</string>
+    <string name="no_fav_movie">You don\'t have any favorite movies</string>
+    <string name="no_fav_tv_show">You don\'t have any favorite tv shows</string>
 
     <string name="image_of_movie">Movie Poster</string>
     <string name="image_of_tv_show">TV Show Poster</string>
+    <string name="favorite">Favorite</string>
 
 </resources>

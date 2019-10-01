@@ -7,6 +7,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ProgressBar;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -20,17 +21,17 @@ import java.util.ArrayList;
 
 import fcp.dicoding.moviecatalogue.R;
 import fcp.dicoding.moviecatalogue.adapter.TvShowAdapter;
+import fcp.dicoding.moviecatalogue.model.DetailTvShow;
 import fcp.dicoding.moviecatalogue.model.tv_show.TvShow;
 import fcp.dicoding.moviecatalogue.ui.DetailTvShowActivity;
 import fcp.dicoding.moviecatalogue.view_model.TvShowListViewModel;
 
-public class TvShowListFragment extends Fragment {
+public class TvShowListFragment extends Fragment implements TvShowListViewModel.TvShowListCallback {
 
     private TvShowListViewModel tvShowListViewModel;
 
     public TvShowListFragment() {
     }
-
 
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container,
@@ -49,6 +50,7 @@ public class TvShowListFragment extends Fragment {
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
+        tvShowListViewModel.setTvShowListCallback(this);
 
         RecyclerView rvTvShow = view.findViewById(R.id.rv_tv_show);
         final ProgressBar progressTvShow = view.findViewById(R.id.progress_tv_show);
@@ -84,10 +86,20 @@ public class TvShowListFragment extends Fragment {
         tvShowAdapter.setOnItemClickCallback(new TvShowAdapter.OnItemClickCallback() {
             @Override
             public void onItemClicked(TvShow data) {
-                Intent intent = new Intent(getContext(), DetailTvShowActivity.class);
-                intent.putExtra(DetailTvShowActivity.EXTRA_TV_SHOW, data);
-                startActivity(intent);
+                tvShowListViewModel.actionTvShowClicked(data.getId(), getResources().getString(R.string.language));
             }
         });
+    }
+
+    @Override
+    public void onTvShowClicked(DetailTvShow detailTvShow) {
+        Intent intent = new Intent(getContext(), DetailTvShowActivity.class);
+        intent.putExtra(DetailTvShowActivity.EXTRA_DETAIL_TV_SHOW, detailTvShow);
+        startActivity(intent);
+    }
+
+    @Override
+    public void onToastMessageReceive(int stringResource) {
+        Toast.makeText(getContext(), getResources().getString(stringResource), Toast.LENGTH_SHORT).show();
     }
 }

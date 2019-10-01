@@ -13,23 +13,26 @@ import com.bumptech.glide.Glide;
 import com.bumptech.glide.request.RequestOptions;
 
 import java.util.ArrayList;
+import java.util.List;
 
 import fcp.dicoding.moviecatalogue.BuildConfig;
 import fcp.dicoding.moviecatalogue.R;
-import fcp.dicoding.moviecatalogue.model.movie.Movie;
+import fcp.dicoding.moviecatalogue.model.DetailTvShow;
+import fcp.dicoding.moviecatalogue.model.FavTvShow;
+import fcp.dicoding.moviecatalogue.model.genre.Genre;
 
-public class MovieAdapter extends RecyclerView.Adapter<MovieAdapter.ViewHolder> {
-    private ArrayList<Movie> listMovie;
+public class FavTvShowAdapter extends RecyclerView.Adapter<FavTvShowAdapter.ViewHolder> {
+    private List<FavTvShow> listFavTvShow;
     private OnItemClickCallback onItemClickCallback;
 
-    public MovieAdapter() {
-        listMovie = new ArrayList<>();
+    public FavTvShowAdapter() {
+        listFavTvShow = new ArrayList<>();
     }
 
-    public void setData(ArrayList<Movie> data) {
-        listMovie.clear();
-        listMovie.addAll(data);
-        this.notifyDataSetChanged();
+    public void setData(List<FavTvShow> data) {
+        listFavTvShow.clear();
+        listFavTvShow.addAll(data);
+        notifyDataSetChanged();
     }
 
     public void setOnItemClickCallback(OnItemClickCallback onItemClickCallback) {
@@ -38,43 +41,56 @@ public class MovieAdapter extends RecyclerView.Adapter<MovieAdapter.ViewHolder> 
 
     @NonNull
     @Override
-    public ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.item_movie, parent, false);
+    public FavTvShowAdapter.ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
+        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.item_tv_show, parent, false);
         return new ViewHolder(view);
     }
 
     @Override
-    public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
-        final Movie movie = listMovie.get(position);
+    public void onBindViewHolder(@NonNull FavTvShowAdapter.ViewHolder holder, int position) {
+        FavTvShow favTvShow = listFavTvShow.get(position);
+        DetailTvShow detailTvShow;
 
-        holder.tvScore.setText(String.valueOf(movie.getVoteAverage()));
-        holder.tvYear.setText(movie.getReleaseDate().substring(0, 4));
-        holder.tvName.setText(movie.getOriginalTitle());
+        if (favTvShow.getTvShowId().getOverview() != null) {
+            detailTvShow = favTvShow.getTvShowId();
+        } else {
+            detailTvShow = favTvShow.getTvShowEn();
+        }
+
+        holder.tvScore.setText(String.valueOf(detailTvShow.getVoteAverage()));
+        holder.tvYear.setText(detailTvShow.getFirstAirDate().substring(0, 4));
+        holder.tvName.setText(detailTvShow.getOriginalName());
 
         StringBuilder genreBuilder = new StringBuilder();
-        for (String item : movie.getGenres()) {
-            genreBuilder.append(item).append(", ");
+        for (Genre item : detailTvShow.getGenres()) {
+            genreBuilder.append(item.getName()).append(", ");
         }
         String genre = genreBuilder.toString();
         holder.tvGenre.setText(genre.substring(0, genre.length() - 2));
 
-        holder.tvDescription.setText(movie.getOverview());
+        holder.tvDescription.setText(detailTvShow.getOverview());
+
         Glide.with(holder.itemView.getContext())
-                .load(BuildConfig.BASE_URL_IMAGE + "/w185/" + movie.getPosterPath())
+                .load(BuildConfig.BASE_URL_IMAGE + "/w185/" + detailTvShow.getPosterPath())
                 .apply(new RequestOptions().override(100, 150))
                 .into(holder.imgPhoto);
 
+        final DetailTvShow finalDetailTvShow = detailTvShow;
         holder.itemView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                onItemClickCallback.onItemClicked(movie);
+                onItemClickCallback.onItemClicked(finalDetailTvShow);
             }
         });
     }
 
     @Override
     public int getItemCount() {
-        return listMovie.size();
+        return listFavTvShow.size();
+    }
+
+    public interface OnItemClickCallback {
+        void onItemClicked(DetailTvShow data);
     }
 
     class ViewHolder extends RecyclerView.ViewHolder {
@@ -90,9 +106,5 @@ public class MovieAdapter extends RecyclerView.Adapter<MovieAdapter.ViewHolder> 
             tvDescription = itemView.findViewById(R.id.tv_description);
             imgPhoto = itemView.findViewById(R.id.img_photo);
         }
-    }
-
-    public interface OnItemClickCallback {
-        void onItemClicked(Movie data);
     }
 }

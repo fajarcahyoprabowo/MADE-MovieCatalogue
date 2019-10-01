@@ -16,19 +16,21 @@ import java.util.ArrayList;
 
 import fcp.dicoding.moviecatalogue.BuildConfig;
 import fcp.dicoding.moviecatalogue.R;
-import fcp.dicoding.moviecatalogue.model.movie.Movie;
+import fcp.dicoding.moviecatalogue.model.DetailMovie;
+import fcp.dicoding.moviecatalogue.model.FavMovie;
+import fcp.dicoding.moviecatalogue.model.genre.Genre;
 
-public class MovieAdapter extends RecyclerView.Adapter<MovieAdapter.ViewHolder> {
-    private ArrayList<Movie> listMovie;
+public class FavMovieAdapter extends RecyclerView.Adapter<FavMovieAdapter.ViewHolder> {
+    private ArrayList<FavMovie> listFavMovie;
     private OnItemClickCallback onItemClickCallback;
 
-    public MovieAdapter() {
-        listMovie = new ArrayList<>();
+    public FavMovieAdapter() {
+        listFavMovie = new ArrayList<>();
     }
 
-    public void setData(ArrayList<Movie> data) {
-        listMovie.clear();
-        listMovie.addAll(data);
+    public void setData(ArrayList<FavMovie> data) {
+        listFavMovie.clear();
+        listFavMovie.addAll(data);
         this.notifyDataSetChanged();
     }
 
@@ -45,36 +47,49 @@ public class MovieAdapter extends RecyclerView.Adapter<MovieAdapter.ViewHolder> 
 
     @Override
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
-        final Movie movie = listMovie.get(position);
+        FavMovie favMovie = listFavMovie.get(position);
+        DetailMovie detailMovie;
 
-        holder.tvScore.setText(String.valueOf(movie.getVoteAverage()));
-        holder.tvYear.setText(movie.getReleaseDate().substring(0, 4));
-        holder.tvName.setText(movie.getOriginalTitle());
+        if (favMovie.getMovieId().getOverview() != null) {
+            detailMovie = favMovie.getMovieId();
+        } else {
+            detailMovie = favMovie.getMovieEn();
+        }
+
+        holder.tvScore.setText(String.valueOf(detailMovie.getVoteAverage()));
+        holder.tvYear.setText(detailMovie.getReleaseDate().substring(0, 4));
+        holder.tvName.setText(detailMovie.getOriginalTitle());
 
         StringBuilder genreBuilder = new StringBuilder();
-        for (String item : movie.getGenres()) {
-            genreBuilder.append(item).append(", ");
+        for (Genre item : detailMovie.getGenres()) {
+            genreBuilder.append(item.getName()).append(", ");
         }
         String genre = genreBuilder.toString();
         holder.tvGenre.setText(genre.substring(0, genre.length() - 2));
 
-        holder.tvDescription.setText(movie.getOverview());
+        holder.tvDescription.setText(detailMovie.getOverview());
+
         Glide.with(holder.itemView.getContext())
-                .load(BuildConfig.BASE_URL_IMAGE + "/w185/" + movie.getPosterPath())
+                .load(BuildConfig.BASE_URL_IMAGE + "/w185/" + detailMovie.getPosterPath())
                 .apply(new RequestOptions().override(100, 150))
                 .into(holder.imgPhoto);
 
+        final DetailMovie finalDetailMovie = detailMovie;
         holder.itemView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                onItemClickCallback.onItemClicked(movie);
+                onItemClickCallback.onItemClicked(finalDetailMovie);
             }
         });
     }
 
     @Override
     public int getItemCount() {
-        return listMovie.size();
+        return listFavMovie.size();
+    }
+
+    public interface OnItemClickCallback {
+        void onItemClicked(DetailMovie data);
     }
 
     class ViewHolder extends RecyclerView.ViewHolder {
@@ -90,9 +105,5 @@ public class MovieAdapter extends RecyclerView.Adapter<MovieAdapter.ViewHolder> 
             tvDescription = itemView.findViewById(R.id.tv_description);
             imgPhoto = itemView.findViewById(R.id.img_photo);
         }
-    }
-
-    public interface OnItemClickCallback {
-        void onItemClicked(Movie data);
     }
 }

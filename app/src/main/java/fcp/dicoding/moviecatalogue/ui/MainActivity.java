@@ -5,33 +5,34 @@ import android.os.Bundle;
 import android.provider.Settings;
 import android.view.Menu;
 import android.view.MenuItem;
-import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.lifecycle.Observer;
+import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProviders;
-import androidx.viewpager.widget.ViewPager;
 
 import com.androidnetworking.AndroidNetworking;
 import com.androidnetworking.gsonparserfactory.GsonParserFactory;
-import com.google.android.material.tabs.TabLayout;
+import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 
 import fcp.dicoding.moviecatalogue.R;
-import fcp.dicoding.moviecatalogue.adapter.MainPageAdapter;
+import fcp.dicoding.moviecatalogue.ui.fragment.FavoriteFragment;
+import fcp.dicoding.moviecatalogue.ui.fragment.MovieListFragment;
+import fcp.dicoding.moviecatalogue.ui.fragment.TvShowListFragment;
 import fcp.dicoding.moviecatalogue.view_model.MovieListViewModel;
 import fcp.dicoding.moviecatalogue.view_model.TvShowListViewModel;
 
-public class MainActivity extends AppCompatActivity implements TabLayout.BaseOnTabSelectedListener {
-    public final static String ERROR_LOAD_MOVIES = "error_load_movies";
+public class MainActivity extends AppCompatActivity implements BottomNavigationView.OnNavigationItemSelectedListener {
 
-    private static final int REQUEST_CODE_LANG = 101;
+    private final static int REQUEST_CODE_LANG = 101;
+    private final static String KEY_STATE_FRAGMENT = "key_state_fragment";
+
     private MovieListViewModel movieListViewModel;
     private TvShowListViewModel tvShowListViewModel;
-    private ViewPager viewPager;
+    private Fragment fragment;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -50,25 +51,15 @@ public class MainActivity extends AppCompatActivity implements TabLayout.BaseOnT
             getSupportActionBar().setElevation(0);
         }
 
-        TabLayout tabLayout = findViewById(R.id.tab_layout);
-        viewPager = findViewById(R.id.view_pager);
+        if (savedInstanceState == null) {
+            fragment = new MovieListFragment();
+            loadFragment(fragment);
+        } else {
+            fragment = getSupportFragmentManager().getFragment(savedInstanceState, KEY_STATE_FRAGMENT);
+        }
 
-        MainPageAdapter mainPageAdapter = new MainPageAdapter(getSupportFragmentManager(), tabLayout.getTabCount());
-
-        viewPager.setAdapter(mainPageAdapter);
-        viewPager.addOnPageChangeListener(new TabLayout.TabLayoutOnPageChangeListener(tabLayout));
-        tabLayout.addOnTabSelectedListener(this);
-
-        movieListViewModel.getMessage().observe(this, new Observer<String>() {
-            @Override
-            public void onChanged(String message) {
-                if (ERROR_LOAD_MOVIES.equals(message)) {
-                    Toast.makeText(MainActivity.this, getResources().getString(R.string.error_load_data), Toast.LENGTH_SHORT).show();
-                } else {
-                    Toast.makeText(MainActivity.this, message, Toast.LENGTH_SHORT).show();
-                }
-            }
-        });
+        BottomNavigationView bottomNavMain = findViewById(R.id.bottom_nav_main);
+        bottomNavMain.setOnNavigationItemSelectedListener(this);
     }
 
     @Override
@@ -99,17 +90,44 @@ public class MainActivity extends AppCompatActivity implements TabLayout.BaseOnT
     }
 
     @Override
-    public void onTabSelected(TabLayout.Tab tab) {
-        viewPager.setCurrentItem(tab.getPosition());
+    public boolean onNavigationItemSelected(@NonNull MenuItem menuItem) {
+
+        switch (menuItem.getItemId()) {
+            case R.id.action_movie:
+                if (!(fragment instanceof MovieListFragment)) {
+                    movieListViewModel.clearMovies();
+                    fragment = new MovieListFragment();
+                }
+                break;
+
+            case R.id.action_tv_show:
+                if (!(fragment instanceof TvShowListFragment)) {
+                    tvShowListViewModel.clearListTvShow();
+                    fragment = new TvShowListFragment();
+                }
+                break;
+
+            case R.id.action_favorite:
+                if (!(fragment instanceof FavoriteFragment)) fragment = new FavoriteFragment();
+                break;
+        }
+
+        return loadFragment(fragment);
     }
 
     @Override
-    public void onTabUnselected(TabLayout.Tab tab) {
-
+    protected void onSaveInstanceState(Bundle outState) {
+        getSupportFragmentManager().putFragment(outState, KEY_STATE_FRAGMENT, fragment);
+        super.onSaveInstanceState(outState);
     }
 
-    @Override
-    public void onTabReselected(TabLayout.Tab tab) {
-
+    private boolean loadFragment(Fragment fragment) {
+        if (fragment != null) {
+            getSupportFragmentManager().beginTransaction()
+                    .replace(R.id.frame_main, fragment)
+                    .commit();
+            return true;
+        }
+        return false;
     }
 }

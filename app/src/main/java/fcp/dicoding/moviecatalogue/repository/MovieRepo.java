@@ -20,19 +20,19 @@ public class MovieRepo {
         return Observable.zip(getMovieResponseObservable("id-ID",page), getMovieResponseObservable("en-EN",page), GenreRepo.getGenreResponseObservable("movie", language), new Function3<GetMovieResponse, GetMovieResponse, GetGenreResponse, ArrayList<Movie>>() {
             @Override
             public ArrayList<Movie> apply(GetMovieResponse idMovies, GetMovieResponse enMovies, GetGenreResponse genre) {
-                ArrayList<Movie> movies = new ArrayList<>();
+                ArrayList<Movie> listMovie = new ArrayList<>();
                 for (int i = 0; i < idMovies.getResults().size(); i++) {
                     if (!idMovies.getResults().get(i).getOverview().equals("")) {
                         if (language.equals("id-ID")) {
-                            idMovies.getResults().get(i).setGenres(GenreRepo.getListGenreNameByListGenreId(idMovies.getResults().get(i).getGenreIds(), genre.getGenres()));
-                            movies.add(idMovies.getResults().get(i));
+                            idMovies.getResults().get(i).setGenres(GenreRepo.getListGenreNameByListGenreId(idMovies.getResults().get(i).getGenreIds(), genre.getListGenre()));
+                            listMovie.add(idMovies.getResults().get(i));
                         } else {
-                            enMovies.getResults().get(i).setGenres(GenreRepo.getListGenreNameByListGenreId(enMovies.getResults().get(i).getGenreIds(), genre.getGenres()));
-                            movies.add(enMovies.getResults().get(i));
+                            enMovies.getResults().get(i).setGenres(GenreRepo.getListGenreNameByListGenreId(enMovies.getResults().get(i).getGenreIds(), genre.getListGenre()));
+                            listMovie.add(enMovies.getResults().get(i));
                         }
                     }
                 }
-                return movies;
+                return listMovie;
             }
         });
     }

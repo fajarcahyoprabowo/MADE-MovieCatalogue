@@ -1,19 +1,29 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <string name="app_name">Katalog Film</string>
-    <string name="movies">Film</string>
-    <string name="tv_shows">Serial TV</string>
+    <string name="movie">Film</string>
+    <string name="tv_show">Serial TV</string>
     <string name="name_movie">Nama Film</string>
     <string name="name_tv_show">Nama Serial TV</string>
     <string name="lorem">lorem ipsum dolor sit amet</string>
     <string name="score">Skor</string>
     <string name="overview">Kilasan Singkat</string>
-    <string name="release_date">Tanggal Rilis</string>
     <string name="genre">Genre</string>
     <string name="change_language">Ubah Pengaturan Bahasa</string>
     <string name="language">id-ID</string>
-    <string name="error_load_data">Terjadi Kesalahan: Data tidak dapat dimuat.</string>
+    <string name="error_load_data">Data tidak dapat dimuat</string>
+    <string name="error_load_detail_movie">Tidak dapat memuat detail film yang dipilih</string>
+    <string name="error_load_detail_tv_show">Tidak dapat memuat detail serial tv yang dipilih</string>
+    <string name="error_add_fav_movie">Tidak dapat menambahkan film ke daftar favorit</string>
+    <string name="error_add_fav_tv_show">Tidak dapat menambahkan serial tv ke daftar favorit</string>
+    <string name="error_delete_fav_movie">Tidak dapat menghapus film dari daftar favorit</string>
+    <string name="error_delete_fav_tv_show">Tidak dapat menghapus serial tv dari daftar favorit</string>
+    <string name="add_to_favorite">Tambah ke Favorit</string>
+    <string name="delete_from_favorite">Hapus Dari Favorit</string>
+    <string name="no_fav_movie">Anda tidak memiliki film favorit</string>
+    <string name="no_fav_tv_show">Anda tidak memiliki serial tv favorit</string>
 
     <string name="image_of_movie">Poster Film</string>
     <string name="image_of_tv_show">Poster Serial TV</string>
+    <string name="favorite">Favorit</string>
 </resources>

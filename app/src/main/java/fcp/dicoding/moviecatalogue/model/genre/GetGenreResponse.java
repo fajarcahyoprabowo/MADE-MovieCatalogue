@@ -6,13 +6,13 @@ import java.util.ArrayList;
 
 public class GetGenreResponse{
 	@SerializedName("genres")
-	private ArrayList<Genre> genres;
+    private ArrayList<Genre> listGenre;
 
-	public void setGenres(ArrayList<Genre> genres){
-		this.genres = genres;
-	}
+    public ArrayList<Genre> getListGenre() {
+        return listGenre;
+    }
 
-	public ArrayList<Genre> getGenres(){
-		return genres;
+    public void setListGenre(ArrayList<Genre> listGenre) {
+        this.listGenre = listGenre;
 	}
 }

@@ -7,6 +7,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ProgressBar;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -20,11 +21,12 @@ import java.util.ArrayList;
 
 import fcp.dicoding.moviecatalogue.R;
 import fcp.dicoding.moviecatalogue.adapter.MovieAdapter;
+import fcp.dicoding.moviecatalogue.model.DetailMovie;
 import fcp.dicoding.moviecatalogue.model.movie.Movie;
 import fcp.dicoding.moviecatalogue.ui.DetailMovieActivity;
 import fcp.dicoding.moviecatalogue.view_model.MovieListViewModel;
 
-public class MovieListFragment extends Fragment {
+public class MovieListFragment extends Fragment implements MovieListViewModel.MovieListCallback {
 
     private MovieListViewModel movieListViewModel;
 
@@ -42,12 +44,14 @@ public class MovieListFragment extends Fragment {
         if (savedInstanceState == null) {
             movieListViewModel.setMovies(getResources().getString(R.string.language));
         }
+
         return inflater.inflate(R.layout.fragment_movie_list, container, false);
     }
 
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
+        movieListViewModel.setMovieListCallback(this);
 
         RecyclerView rvMovies = view.findViewById(R.id.rv_movies);
         final ProgressBar progressMovies = view.findViewById(R.id.progress_movies);
@@ -60,11 +64,11 @@ public class MovieListFragment extends Fragment {
 
         movieListViewModel.getMovies().observe(this, new Observer<ArrayList<Movie>>() {
             @Override
-            public void onChanged(ArrayList<Movie> movies) {
-                if (movies.size() < 10) {
+            public void onChanged(ArrayList<Movie> listMovie) {
+                if (listMovie.size() < 10) {
                     movieListViewModel.setMovies(getResources().getString(R.string.language));
                 } else {
-                    movieAdapter.setData(movies);
+                    movieAdapter.setData(listMovie);
                 }
             }
         });
@@ -83,10 +87,20 @@ public class MovieListFragment extends Fragment {
         movieAdapter.setOnItemClickCallback(new MovieAdapter.OnItemClickCallback() {
             @Override
             public void onItemClicked(Movie data) {
-                Intent intent = new Intent(getContext(), DetailMovieActivity.class);
-                intent.putExtra(DetailMovieActivity.EXTRA_MOVIE, data);
-                startActivity(intent);
+                movieListViewModel.actionMovieClick(data.getId(), getResources().getString(R.string.language));
             }
         });
+    }
+
+    @Override
+    public void onMovieClicked(DetailMovie detailMovie) {
+        Intent intent = new Intent(getContext(), DetailMovieActivity.class);
+        intent.putExtra(DetailMovieActivity.EXTRA_DETAIL_MOVIE, detailMovie);
+        startActivity(intent);
+    }
+
+    @Override
+    public void onToastMessageReceive(int stringResource) {
+        Toast.makeText(getContext(), getResources().getString(stringResource), Toast.LENGTH_SHORT).show();
     }
 }
