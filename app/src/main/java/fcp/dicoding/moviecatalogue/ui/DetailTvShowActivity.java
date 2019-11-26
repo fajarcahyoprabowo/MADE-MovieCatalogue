@@ -60,25 +60,36 @@ public class DetailTvShowActivity extends AppCompatActivity implements DetailTvS
             ctlDetail.setTitle(detailTvShow.getOriginalName());
             ctlDetail.setExpandedTitleColor(Color.parseColor("#ffffff"));
 
+            tvScore.setText(String.valueOf(detailTvShow.getVoteAverage()));
+
             Glide.with(this)
                     .load(BuildConfig.BASE_URL_IMAGE + "/w342/" + detailTvShow.getBackdropPath())
                     .into(imgDetail);
 
             Glide.with(this)
                     .load(BuildConfig.BASE_URL_IMAGE + "/w185/" + detailTvShow.getPosterPath())
+                    .error(Glide.with(imgPhoto).load(R.drawable.ic_error_black))
                     .into(imgPhoto);
 
-            tvName.setText(String.format("%s (%s)", detailTvShow.getOriginalName(), detailTvShow.getFirstAirDate().substring(0, 4)));
-            tvScore.setText(String.valueOf(detailTvShow.getVoteAverage()));
-
-            StringBuilder genreBuilder = new StringBuilder();
-            for (Genre item : detailTvShow.getGenres()) {
-                genreBuilder.append(item.getName()).append(", ");
+            tvName.setText(detailTvShow.getOriginalName());
+            try {
+                tvName.setText(String.format("%s (%s)", detailTvShow.getOriginalName(), detailTvShow.getFirstAirDate().substring(0, 4)));
+            } catch (Exception ignore) {
             }
-            String genre = genreBuilder.toString();
-            tvGenre.setText(genre.substring(0, genre.length() - 2));
 
-            tvDescription.setText(detailTvShow.getOverview());
+            try {
+                StringBuilder genreBuilder = new StringBuilder();
+                for (Genre item : detailTvShow.getGenres()) {
+                    genreBuilder.append(item.getName()).append(", ");
+                }
+                String genre = genreBuilder.toString();
+                tvGenre.setText(genre.substring(0, genre.length() - 2));
+            } catch (Exception ignore) {
+            }
+
+            if (!detailTvShow.getOverview().equals("")) {
+                tvDescription.setText(detailTvShow.getOverview());
+            }
 
             detailTvShowViewModel.checkFavorite(detailTvShow.getId()).observe(this, new Observer<FavTvShow>() {
                 @Override

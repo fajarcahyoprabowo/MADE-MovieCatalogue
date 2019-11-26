@@ -1,8 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <string name="app_name">Katalog Film</string>
+    <string name="settings">Pengaturan</string>
     <string name="movie">Film</string>
     <string name="tv_show">Serial TV</string>
+    <string name="list_movie">Daftar Film</string>
+    <string name="list_tv_show">Daftar Serial TV</string>
     <string name="name_movie">Nama Film</string>
     <string name="name_tv_show">Nama Serial TV</string>
     <string name="lorem">lorem ipsum dolor sit amet</string>
@@ -22,8 +25,17 @@
     <string name="delete_from_favorite">Hapus Dari Favorit</string>
     <string name="no_fav_movie">Anda tidak memiliki film favorit</string>
     <string name="no_fav_tv_show">Anda tidak memiliki serial tv favorit</string>
+    <string name="no_movie_overview">Kami belum memiliki kilasan singkat dalam bahasa Indonesia.</string>
+    <string name="no_tv_show_overview">Kami belum memiliki kilasan singkat dalam bahasa Indonesia.</string>
+    <string name="no_data">Tidak ada data.</string>
 
     <string name="image_of_movie">Poster Film</string>
     <string name="image_of_tv_show">Poster Serial TV</string>
     <string name="favorite">Favorit</string>
+    <string name="search">Cari</string>
+
+    <string name="release_reminder_summary">Pengingat menunjukkan film yang dirilis hari ini</string>
+    <string name="daily_reminder_summary">Pengingat untuk kembali ke aplikasi</string>
+    <string name="release_reminder_message">%s telah dirilis hari ini</string>
+    <string name="daily_reminder_message">Katalog film merindukanmu!</string>
 </resources>

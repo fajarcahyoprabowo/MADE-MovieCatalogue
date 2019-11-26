@@ -48,21 +48,32 @@ public class TvShowAdapter extends RecyclerView.Adapter<TvShowAdapter.ViewHolder
         final TvShow tvShow = mListTvShow.get(position);
 
         holder.tvScore.setText(String.valueOf(tvShow.getVoteAverage()));
-        holder.tvYear.setText(tvShow.getFirstAirDate().substring(0, 4));
         holder.tvName.setText(tvShow.getOriginalName());
 
-        StringBuilder genreBuilder = new StringBuilder();
-        for (String item : tvShow.getGenres()) {
-            genreBuilder.append(item).append(", ");
+        try {
+            holder.tvYear.setText(tvShow.getFirstAirDate().substring(0, 4));
+        } catch (Exception ignore) {
         }
-        String genre = genreBuilder.toString();
-        holder.tvGenre.setText(genre.substring(0, genre.length() - 2));
 
-        holder.tvDescription.setText(tvShow.getOverview());
+        try {
+            StringBuilder genreBuilder = new StringBuilder();
+            for (String item : tvShow.getGenres()) {
+                genreBuilder.append(item).append(", ");
+            }
+            String genre = genreBuilder.toString();
+            holder.tvGenre.setText(genre.substring(0, genre.length() - 2));
+        } catch (Exception ignore) {
+        }
+
+        if (!tvShow.getOverview().equals("")) {
+            holder.tvDescription.setText(tvShow.getOverview());
+        }
+
 
         Glide.with(holder.itemView.getContext())
                 .load(BuildConfig.BASE_URL_IMAGE + "/w185/" + tvShow.getPosterPath())
                 .apply(new RequestOptions().override(100, 150))
+                .error(Glide.with(holder.imgPhoto).load(R.drawable.ic_error_black))
                 .into(holder.imgPhoto);
 
         holder.itemView.setOnClickListener(new View.OnClickListener() {

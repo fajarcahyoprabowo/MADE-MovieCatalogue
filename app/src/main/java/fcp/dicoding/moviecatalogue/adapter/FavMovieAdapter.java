@@ -57,21 +57,32 @@ public class FavMovieAdapter extends RecyclerView.Adapter<FavMovieAdapter.ViewHo
         }
 
         holder.tvScore.setText(String.valueOf(detailMovie.getVoteAverage()));
-        holder.tvYear.setText(detailMovie.getReleaseDate().substring(0, 4));
+
         holder.tvName.setText(detailMovie.getOriginalTitle());
 
-        StringBuilder genreBuilder = new StringBuilder();
-        for (Genre item : detailMovie.getGenres()) {
-            genreBuilder.append(item.getName()).append(", ");
+        try {
+            holder.tvYear.setText(detailMovie.getReleaseDate().substring(0, 4));
+        } catch (Exception ignore) {
         }
-        String genre = genreBuilder.toString();
-        holder.tvGenre.setText(genre.substring(0, genre.length() - 2));
 
-        holder.tvDescription.setText(detailMovie.getOverview());
+        try {
+            StringBuilder genreBuilder = new StringBuilder();
+            for (Genre item : detailMovie.getGenres()) {
+                genreBuilder.append(item.getName()).append(", ");
+            }
+            String genre = genreBuilder.toString();
+            holder.tvGenre.setText(genre.substring(0, genre.length() - 2));
+        } catch (Exception ignore) {
+        }
+
+        if (!detailMovie.getOverview().equals("")) {
+            holder.tvDescription.setText(detailMovie.getOverview());
+        }
 
         Glide.with(holder.itemView.getContext())
                 .load(BuildConfig.BASE_URL_IMAGE + "/w185/" + detailMovie.getPosterPath())
                 .apply(new RequestOptions().override(100, 150))
+                .error(Glide.with(holder.imgPhoto).load(R.drawable.ic_error_black))
                 .into(holder.imgPhoto);
 
         final DetailMovie finalDetailMovie = detailMovie;

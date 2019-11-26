@@ -1,6 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
     package="fcp.dicoding.moviecatalogue">
+
+    <uses-permission android:name="android.permission.INTERNET" />
 
     <application
         android:allowBackup="true"
@@ -8,7 +11,16 @@
         android:label="@string/app_name"
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
-        android:theme="@style/AppTheme">
+        android:theme="@style/AppTheme"
+        tools:ignore="GoogleAppIndexingWarning">
+        <activity
+            android:name=".ui.SettingsActivity"
+            android:label="@string/title_activity_settings"
+            android:parentActivityName=".ui.MainActivity">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="fcp.dicoding.moviecatalogue.ui.MainActivity" />
+        </activity>
         <activity
             android:name=".ui.DetailTvShowActivity"
             android:theme="@style/AppTheme.NoActionBar" />
@@ -22,8 +34,35 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-    </application>
 
-    <uses-permission android:name="android.permission.INTERNET" />
+        <provider
+            android:name=".service.provider.FavMovieProvider"
+            android:authorities="fcp.dicoding.moviecatalogue.service.provider"
+            android:exported="true" />
+
+        <receiver
+            android:name=".service.receiver.DailyAlarmReceiver"
+            android:enabled="true"
+            android:exported="false" />
+
+        <receiver
+            android:name=".service.receiver.ReleaseTodayAlarmReceiver"
+            android:enabled="true"
+            android:exported="false" />
+
+        <receiver android:name=".widget.FavMovieWidget">
+            <intent-filter>
+                <action android:name="android.appwidget.action.APPWIDGET_UPDATE" />
+            </intent-filter>
+
+            <meta-data
+                android:name="android.appwidget.provider"
+                android:resource="@xml/fav_movie_widget_info" />
+        </receiver>
+
+        <service
+            android:name=".service.widget.FavMovieWidgetService"
+            android:permission="android.permission.BIND_REMOTEVIEWS" />
+    </application>
 
 </manifest>

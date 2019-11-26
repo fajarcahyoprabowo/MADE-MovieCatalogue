@@ -1,5 +1,7 @@
 package fcp.dicoding.moviecatalogue.model;
 
+import android.database.Cursor;
+
 import androidx.room.ColumnInfo;
 import androidx.room.Entity;
 import androidx.room.PrimaryKey;
@@ -43,5 +45,12 @@ public class FavMovie {
 
     public void setMovieId(DetailMovie movieId) {
         this.movieId = movieId;
+    }
+
+    public FavMovie() {
+    }
+
+    public FavMovie(Cursor cursor) {
+        this.id = cursor.getInt(cursor.getColumnIndexOrThrow("id"));
     }
 }

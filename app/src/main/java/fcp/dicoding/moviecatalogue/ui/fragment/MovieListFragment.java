@@ -1,16 +1,24 @@
 package fcp.dicoding.moviecatalogue.ui.fragment;
 
 
+import android.app.SearchManager;
+import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
+import android.provider.Settings;
 import android.view.LayoutInflater;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ProgressBar;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.appcompat.widget.SearchView;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProviders;
@@ -24,6 +32,8 @@ import fcp.dicoding.moviecatalogue.adapter.MovieAdapter;
 import fcp.dicoding.moviecatalogue.model.DetailMovie;
 import fcp.dicoding.moviecatalogue.model.movie.Movie;
 import fcp.dicoding.moviecatalogue.ui.DetailMovieActivity;
+import fcp.dicoding.moviecatalogue.ui.MainActivity;
+import fcp.dicoding.moviecatalogue.ui.SettingsActivity;
 import fcp.dicoding.moviecatalogue.view_model.MovieListViewModel;
 
 public class MovieListFragment extends Fragment implements MovieListViewModel.MovieListCallback {
@@ -31,14 +41,17 @@ public class MovieListFragment extends Fragment implements MovieListViewModel.Mo
     private MovieListViewModel movieListViewModel;
 
     public MovieListFragment() {
+
     }
 
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
+        setHasOptionsMenu(true);
 
         if (getActivity() != null) {
             movieListViewModel = ViewModelProviders.of(getActivity()).get(MovieListViewModel.class);
+
         }
 
         if (savedInstanceState == null) {
@@ -54,6 +67,7 @@ public class MovieListFragment extends Fragment implements MovieListViewModel.Mo
         movieListViewModel.setMovieListCallback(this);
 
         RecyclerView rvMovies = view.findViewById(R.id.rv_movies);
+        final TextView tvNoData = view.findViewById(R.id.tv_no_data);
         final ProgressBar progressMovies = view.findViewById(R.id.progress_movies);
 
         rvMovies.setHasFixedSize(true);
@@ -65,10 +79,10 @@ public class MovieListFragment extends Fragment implements MovieListViewModel.Mo
         movieListViewModel.getMovies().observe(this, new Observer<ArrayList<Movie>>() {
             @Override
             public void onChanged(ArrayList<Movie> listMovie) {
-                if (listMovie.size() < 10) {
-                    movieListViewModel.setMovies(getResources().getString(R.string.language));
-                } else {
-                    movieAdapter.setData(listMovie);
+                movieAdapter.setData(listMovie);
+                tvNoData.setVisibility(View.INVISIBLE);
+                if (movieAdapter.getItemCount() <= 0) {
+                    tvNoData.setVisibility(View.VISIBLE);
                 }
             }
         });
@@ -91,6 +105,64 @@ public class MovieListFragment extends Fragment implements MovieListViewModel.Mo
             }
         });
     }
+
+    @Override
+    public void onCreateOptionsMenu(@NonNull Menu menu, @NonNull MenuInflater inflater) {
+        inflater.inflate(R.menu.menu_main, menu);
+
+        SearchManager searchManager = (SearchManager) getActivity().getSystemService(Context.SEARCH_SERVICE);
+
+        if (searchManager != null) {
+            SearchView searchView = (SearchView) (menu.findItem(R.id.search)).getActionView();
+            searchView.setSearchableInfo(searchManager.getSearchableInfo(getActivity().getComponentName()));
+            searchView.setQueryHint(getResources().getString(R.string.search));
+            searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
+                @Override
+                public boolean onQueryTextSubmit(String query) {
+                    movieListViewModel.clearMovies();
+                    movieListViewModel.getMovieByName(query, getResources().getString(R.string.language));
+                    return true;
+                }
+
+                @Override
+                public boolean onQueryTextChange(String newText) {
+                    if (newText.equals("")) {
+                        movieListViewModel.clearMovies();
+                        movieListViewModel.setMovies(getResources().getString(R.string.language));
+                    }
+                    return true;
+                }
+            });
+        }
+
+        super.onCreateOptionsMenu(menu, inflater);
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(@NonNull MenuItem item) {
+        switch (item.getItemId()) {
+            case R.id.action_change_settings:
+                Intent mIntent = new Intent(Settings.ACTION_LOCALE_SETTINGS);
+                startActivityForResult(mIntent, MainActivity.REQUEST_CODE_LANG);
+                break;
+            case R.id.action_preference:
+                startActivity(new Intent(getActivity(), SettingsActivity.class));
+                break;
+        }
+
+        return super.onOptionsItemSelected(item);
+    }
+
+    @Override
+    public void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        if (requestCode == MainActivity.REQUEST_CODE_LANG) {
+            movieListViewModel.clearMovies();
+            movieListViewModel.setMovies(getResources().getString(R.string.language));
+        }
+    }
+
+
 
     @Override
     public void onMovieClicked(DetailMovie detailMovie) {

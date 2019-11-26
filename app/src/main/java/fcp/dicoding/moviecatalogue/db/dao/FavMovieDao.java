@@ -1,5 +1,7 @@
 package fcp.dicoding.moviecatalogue.db.dao;
 
+import android.database.Cursor;
+
 import androidx.lifecycle.LiveData;
 import androidx.room.Dao;
 import androidx.room.Delete;
@@ -16,6 +18,12 @@ public interface FavMovieDao {
 
     @Query("SELECT * FROM fav_movie")
     LiveData<List<FavMovie>> getLiveAll();
+
+    @Query("SELECT * FROM fav_movie")
+    List<FavMovie> getAll();
+
+    @Query("SELECT * FROM FAV_MOVIE")
+    Cursor getCursorAll();
 
     @Query("SELECT * FROM fav_movie WHERE id=:id")
     LiveData<FavMovie> getLiveById(int id);

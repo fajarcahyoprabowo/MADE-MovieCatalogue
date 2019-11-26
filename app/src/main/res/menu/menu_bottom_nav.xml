@@ -2,17 +2,17 @@
 <menu xmlns:android="http://schemas.android.com/apk/res/android">
 
     <item
-        android:id="@+id/action_movie"
+        android:id="@+id/page_movie"
         android:icon="@drawable/ic_movie_black"
         android:title="@string/movie" />
 
     <item
-        android:id="@+id/action_tv_show"
+        android:id="@+id/page_tv_show"
         android:icon="@drawable/ic_live_tv_black"
         android:title="@string/tv_show" />
 
     <item
-        android:id="@+id/action_favorite"
+        android:id="@+id/page_favorite"
         android:icon="@drawable/ic_favorite_black"
         android:title="@string/favorite" />
 </menu>

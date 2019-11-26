@@ -58,21 +58,31 @@ public class FavTvShowAdapter extends RecyclerView.Adapter<FavTvShowAdapter.View
         }
 
         holder.tvScore.setText(String.valueOf(detailTvShow.getVoteAverage()));
-        holder.tvYear.setText(detailTvShow.getFirstAirDate().substring(0, 4));
         holder.tvName.setText(detailTvShow.getOriginalName());
 
-        StringBuilder genreBuilder = new StringBuilder();
-        for (Genre item : detailTvShow.getGenres()) {
-            genreBuilder.append(item.getName()).append(", ");
+        try {
+            holder.tvYear.setText(detailTvShow.getFirstAirDate().substring(0, 4));
+        } catch (Exception ignore) {
         }
-        String genre = genreBuilder.toString();
-        holder.tvGenre.setText(genre.substring(0, genre.length() - 2));
 
-        holder.tvDescription.setText(detailTvShow.getOverview());
+        try {
+            StringBuilder genreBuilder = new StringBuilder();
+            for (Genre item : detailTvShow.getGenres()) {
+                genreBuilder.append(item.getName()).append(", ");
+            }
+            String genre = genreBuilder.toString();
+            holder.tvGenre.setText(genre.substring(0, genre.length() - 2));
+        } catch (Exception ignore) {
+        }
+
+        if (!detailTvShow.getOverview().equals("")) {
+            holder.tvDescription.setText(detailTvShow.getOverview());
+        }
 
         Glide.with(holder.itemView.getContext())
                 .load(BuildConfig.BASE_URL_IMAGE + "/w185/" + detailTvShow.getPosterPath())
                 .apply(new RequestOptions().override(100, 150))
+                .error(Glide.with(holder.imgPhoto).load(R.drawable.ic_error_black))
                 .into(holder.imgPhoto);
 
         final DetailTvShow finalDetailTvShow = detailTvShow;

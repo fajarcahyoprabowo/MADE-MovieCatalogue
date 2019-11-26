@@ -24,7 +24,6 @@ public class MovieListViewModel extends ViewModel {
     private MovieListCallback movieListCallback;
 
     private ArrayList<Movie> mListMovie = new ArrayList<>();
-    private int page = 1;
 
     public void setMovieListCallback(MovieListCallback movieListCallback) {
         this.movieListCallback = movieListCallback;
@@ -32,11 +31,10 @@ public class MovieListViewModel extends ViewModel {
 
     public void clearMovies() {
         mListMovie.clear();
-        page = 1;
     }
 
     public void setMovies(String language) {
-        movieRepo.getListMovieObservable(language, page).subscribe(new Observer<ArrayList<Movie>>() {
+        movieRepo.getListMovieObservable(language, 1).subscribe(new Observer<ArrayList<Movie>>() {
             @Override
             public void onSubscribe(Disposable d) {
                 mLoading.setValue(true);
@@ -45,7 +43,34 @@ public class MovieListViewModel extends ViewModel {
             @Override
             public void onNext(ArrayList<Movie> listMovie) {
                 mListMovie.addAll(listMovie);
-                page++;
+                mListMovieLiveData.postValue(mListMovie);
+                mLoading.setValue(false);
+            }
+
+            @Override
+            public void onError(Throwable e) {
+                e.printStackTrace();
+                movieListCallback.onToastMessageReceive(R.string.error_load_data);
+                mLoading.setValue(false);
+            }
+
+            @Override
+            public void onComplete() {
+                mLoading.setValue(false);
+            }
+        });
+    }
+
+    public void getMovieByName(String name, String language) {
+        movieRepo.getListMovieByNameObservable(name, language, 1).subscribe(new Observer<ArrayList<Movie>>() {
+            @Override
+            public void onSubscribe(Disposable d) {
+                mLoading.setValue(true);
+            }
+
+            @Override
+            public void onNext(ArrayList<Movie> movies) {
+                mListMovie.addAll(movies);
                 mListMovieLiveData.postValue(mListMovie);
                 mLoading.setValue(false);
             }

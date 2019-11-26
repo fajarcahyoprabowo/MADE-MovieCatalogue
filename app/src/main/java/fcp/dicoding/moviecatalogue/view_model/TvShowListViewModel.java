@@ -23,7 +23,6 @@ public class TvShowListViewModel extends ViewModel {
     private TvShowListCallback tvShowListCallback;
 
     private ArrayList<TvShow> mListTvShow = new ArrayList<>();
-    private int page = 1;
 
     public void setTvShowListCallback(TvShowListCallback tvShowListCallback) {
         this.tvShowListCallback = tvShowListCallback;
@@ -31,11 +30,10 @@ public class TvShowListViewModel extends ViewModel {
 
     public void clearListTvShow() {
         mListTvShow.clear();
-        page = 1;
     }
 
     public void setListTvShow (String language) {
-        mTvShowRepo.getListTvShowObservable(language, page).subscribe(new Observer<ArrayList<TvShow>>() {
+        mTvShowRepo.getListTvShowObservable(language, 1).subscribe(new Observer<ArrayList<TvShow>>() {
             @Override
             public void onSubscribe(Disposable d) {
                 mLoading.postValue(true);
@@ -44,7 +42,34 @@ public class TvShowListViewModel extends ViewModel {
             @Override
             public void onNext(ArrayList<TvShow> listTvShow) {
                 mListTvShow.addAll(listTvShow);
-                page++;
+                mListTvShowLiveData.postValue(mListTvShow);
+                mLoading.postValue(false);
+            }
+
+            @Override
+            public void onError(Throwable e) {
+                e.printStackTrace();
+                tvShowListCallback.onToastMessageReceive(R.string.error_load_data);
+                mLoading.postValue(false);
+            }
+
+            @Override
+            public void onComplete() {
+                mLoading.postValue(false);
+            }
+        });
+    }
+
+    public void getTvShowByName(String name, String language) {
+        mTvShowRepo.getListTvShowByNameObservable(name, language, 1).subscribe(new Observer<ArrayList<TvShow>>() {
+            @Override
+            public void onSubscribe(Disposable d) {
+                mLoading.setValue(false);
+            }
+
+            @Override
+            public void onNext(ArrayList<TvShow> tvShows) {
+                mListTvShow.addAll(tvShows);
                 mListTvShowLiveData.postValue(mListTvShow);
                 mLoading.postValue(false);
             }

@@ -48,20 +48,31 @@ public class MovieAdapter extends RecyclerView.Adapter<MovieAdapter.ViewHolder> 
         final Movie movie = listMovie.get(position);
 
         holder.tvScore.setText(String.valueOf(movie.getVoteAverage()));
-        holder.tvYear.setText(movie.getReleaseDate().substring(0, 4));
         holder.tvName.setText(movie.getOriginalTitle());
 
-        StringBuilder genreBuilder = new StringBuilder();
-        for (String item : movie.getGenres()) {
-            genreBuilder.append(item).append(", ");
+        try {
+            holder.tvYear.setText(movie.getReleaseDate().substring(0, 4));
+        } catch (Exception ignored) {
         }
-        String genre = genreBuilder.toString();
-        holder.tvGenre.setText(genre.substring(0, genre.length() - 2));
 
-        holder.tvDescription.setText(movie.getOverview());
+        try {
+            StringBuilder genreBuilder = new StringBuilder();
+            for (String item : movie.getGenres()) {
+                genreBuilder.append(item).append(", ");
+            }
+            String genre = genreBuilder.toString();
+            holder.tvGenre.setText(genre.substring(0, genre.length() - 2));
+        } catch (Exception ignored) {
+        }
+
+        if (!movie.getOverview().equals("")) {
+            holder.tvDescription.setText(movie.getOverview());
+        }
+
         Glide.with(holder.itemView.getContext())
                 .load(BuildConfig.BASE_URL_IMAGE + "/w185/" + movie.getPosterPath())
                 .apply(new RequestOptions().override(100, 150))
+                .error(Glide.with(holder.imgPhoto).load(R.drawable.ic_error_black))
                 .into(holder.imgPhoto);
 
         holder.itemView.setOnClickListener(new View.OnClickListener() {

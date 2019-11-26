@@ -25,6 +25,7 @@ public abstract class MyDatabase extends RoomDatabase {
                 if (INSTANCE == null) {
                     INSTANCE = Room.databaseBuilder(context.getApplicationContext(),
                             MyDatabase.class, "favorite_movie")
+                            .allowMainThreadQueries()
                             .build();
                 }
             }

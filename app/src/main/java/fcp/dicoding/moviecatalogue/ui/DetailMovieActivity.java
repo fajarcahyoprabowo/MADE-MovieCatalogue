@@ -60,25 +60,38 @@ public class DetailMovieActivity extends AppCompatActivity implements DetailMovi
             ctlDetail.setTitle(detailMovie.getOriginalTitle());
             ctlDetail.setExpandedTitleColor(Color.parseColor("#ffffff"));
 
+            tvScore.setText(String.valueOf(detailMovie.getVoteAverage()));
+
             Glide.with(this)
                     .load(BuildConfig.BASE_URL_IMAGE + "/w342/" + detailMovie.getBackdropPath())
                     .into(imgDetail);
 
             Glide.with(this)
                     .load(BuildConfig.BASE_URL_IMAGE + "/w185/" + detailMovie.getPosterPath())
+                    .error(Glide.with(imgPhoto).load(R.drawable.ic_error_black))
                     .into(imgPhoto);
 
-            tvName.setText(String.format("%s (%s)", detailMovie.getOriginalTitle(), detailMovie.getReleaseDate().substring(0, 4)));
-            tvScore.setText(String.valueOf(detailMovie.getVoteAverage()));
-
-            StringBuilder genreBuilder = new StringBuilder();
-            for (Genre item : detailMovie.getGenres()) {
-                genreBuilder.append(item.getName()).append(", ");
+            tvName.setText(detailMovie.getOriginalTitle());
+            try {
+                tvName.setText(String.format("%s (%s)", detailMovie.getOriginalTitle(), detailMovie.getReleaseDate().substring(0, 4)));
+            } catch (Exception ignore) {
             }
-            String genre = genreBuilder.toString();
-            tvGenre.setText(genre.substring(0, genre.length() - 2));
 
-            tvDescription.setText(detailMovie.getOverview());
+
+            try {
+                StringBuilder genreBuilder = new StringBuilder();
+                for (Genre item : detailMovie.getGenres()) {
+                    genreBuilder.append(item.getName()).append(", ");
+                }
+                String genre = genreBuilder.toString();
+                tvGenre.setText(genre.substring(0, genre.length() - 2));
+            } catch (Exception ignore) {
+            }
+
+            tvDescription.setText(getResources().getString(R.string.no_movie_overview));
+            if (!detailMovie.getOverview().equals("")) {
+                tvDescription.setText(detailMovie.getOverview());
+            }
 
             detailMovieViewModel.checkFavorite(detailMovie.getId()).observe(this, new Observer<FavMovie>() {
                 @Override
