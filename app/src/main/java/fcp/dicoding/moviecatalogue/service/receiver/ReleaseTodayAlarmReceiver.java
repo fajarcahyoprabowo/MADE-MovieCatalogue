@@ -31,9 +31,6 @@ public class ReleaseTodayAlarmReceiver extends BroadcastReceiver {
     private static final int ID_RELEASE_TODAY = 102;
     private static final String CHANNEL_ID = "CHANNEL_2";
     private static final String CHANNEL_NAME = "CHANNEL_RELEASE_TODAY";
-    private static final String EXTRA_TITLE = "TITLE";
-    private static final String EXTRA_MESSAGE = "MESSAGE";
-    private static final String EXTRA_NOTIF_ID = "NOTIF_ID";
     private static volatile ReleaseTodayAlarmReceiver INSTANCE;
 
     public static ReleaseTodayAlarmReceiver getInstance() {
@@ -51,48 +48,25 @@ public class ReleaseTodayAlarmReceiver extends BroadcastReceiver {
 
     @Override
     public void onReceive(Context context, Intent intent) {
-        String title = intent.getStringExtra(EXTRA_TITLE);
-        String message = intent.getStringExtra(EXTRA_MESSAGE);
-        int notifId = intent.getIntExtra(EXTRA_NOTIF_ID, 1111);
-        showAlarmNotification(context, title, message, notifId);
+        showAllReleaseMovie(context);
     }
 
     @SuppressLint("CheckResult")
     public void setAlarmReleaseToday(final Context context) {
-        MovieRepo movieRepo = new MovieRepo();
 
-        @SuppressLint("SimpleDateFormat")
-        DateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
-        Date date = new Date();
+        AlarmManager alarmManager = (AlarmManager) context.getSystemService(Context.ALARM_SERVICE);
+        Intent intent = new Intent(context, ReleaseTodayAlarmReceiver.class);
 
-        movieRepo.getListMovieReleaseObservable(context.getResources().getString(R.string.language), dateFormat.format(date)).subscribe(new Consumer<ArrayList<Movie>>() {
-            @Override
-            public void accept(ArrayList<Movie> movies) throws Exception {
-                int notifId = 1111;
-                int delay = 0;
-                for (Movie movie : movies) {
-                    AlarmManager alarmManager = (AlarmManager) context.getSystemService(Context.ALARM_SERVICE);
-                    Intent intent = new Intent(context, ReleaseTodayAlarmReceiver.class);
-                    intent.putExtra(EXTRA_TITLE, movie.getTitle());
-                    intent.putExtra(EXTRA_MESSAGE, String.format(context.getResources().getString(R.string.release_reminder_message), movie.getTitle()));
-                    intent.putExtra(EXTRA_NOTIF_ID, notifId);
+        PendingIntent pendingIntent = PendingIntent.getBroadcast(context, ID_RELEASE_TODAY, intent, 0);
 
-                    PendingIntent pendingIntent = PendingIntent.getBroadcast(context, ID_RELEASE_TODAY, intent, 0);
+        Calendar calendar = Calendar.getInstance();
+        calendar.set(Calendar.HOUR_OF_DAY, 8);
+        calendar.set(Calendar.MINUTE, 0);
+        calendar.set(Calendar.SECOND, 0);
 
-                    Calendar calendar = Calendar.getInstance();
-                    calendar.set(Calendar.HOUR_OF_DAY, 8);
-                    calendar.set(Calendar.MINUTE, 0);
-                    calendar.set(Calendar.SECOND, 0);
-
-                    if (alarmManager != null) {
-                        alarmManager.setInexactRepeating(AlarmManager.RTC_WAKEUP, calendar.getTimeInMillis() + delay, AlarmManager.INTERVAL_DAY, pendingIntent);
-                    }
-
-                    notifId += 1;
-                    delay += 5000;
-                }
-            }
-        });
+        if (alarmManager != null) {
+            alarmManager.setInexactRepeating(AlarmManager.RTC_WAKEUP, calendar.getTimeInMillis(), AlarmManager.INTERVAL_DAY, pendingIntent);
+        }
     }
 
     public void cancelAlarm(Context context) {
@@ -105,19 +79,43 @@ public class ReleaseTodayAlarmReceiver extends BroadcastReceiver {
         }
     }
 
-    private void showAlarmNotification(Context context, String title, String message, int notifId) {
+    @SuppressLint("CheckResult")
+    private void showAllReleaseMovie(final Context context) {
+        MovieRepo movieRepo = new MovieRepo();
+
+        @SuppressLint("SimpleDateFormat")
+        DateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
+        Date date = new Date();
+
+        movieRepo.getListMovieReleaseObservable(context.getResources().getString(R.string.language), dateFormat.format(date)).subscribe(new Consumer<ArrayList<Movie>>() {
+            @Override
+            public void accept(ArrayList<Movie> movies) {
+                int notificationId = 0;
+                for (Movie movie : movies) {
+                    String title = movie.getTitle();
+                    String description = String.format(context.getResources().getString(R.string.release_reminder_message), movie.getTitle());
+                    showAlarmNotification(context, notificationId, title, description);
+                    notificationId++;
+                }
+            }
+        });
+    }
+
+    private void showAlarmNotification(Context context, int notificationId, String title, String message) {
         NotificationManager notificationManagerCompat = (NotificationManager) context.getSystemService(Context.NOTIFICATION_SERVICE);
         Uri alarmSound = RingtoneManager.getDefaultUri(RingtoneManager.TYPE_NOTIFICATION);
         NotificationCompat.Builder builder = new NotificationCompat.Builder(context, CHANNEL_ID)
                 .setSmallIcon(R.drawable.ic_favorite_black)
                 .setContentTitle(title)
                 .setContentText(message)
+                .setPriority(NotificationCompat.PRIORITY_HIGH)
+                .setAutoCancel(true)
                 .setColor(ContextCompat.getColor(context, android.R.color.transparent))
                 .setVibrate(new long[]{1000, 1000, 1000, 1000, 1000})
                 .setSound(alarmSound);
 
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
-            NotificationChannel channel = new NotificationChannel(CHANNEL_ID, CHANNEL_NAME, NotificationManager.IMPORTANCE_DEFAULT);
+            NotificationChannel channel = new NotificationChannel(CHANNEL_ID, CHANNEL_NAME, NotificationManager.IMPORTANCE_HIGH);
             channel.enableVibration(true);
             channel.setVibrationPattern(new long[]{1000, 1000, 1000, 1000, 1000});
             builder.setChannelId(CHANNEL_ID);
@@ -128,7 +126,7 @@ public class ReleaseTodayAlarmReceiver extends BroadcastReceiver {
 
         Notification notification = builder.build();
         if (notificationManagerCompat != null) {
-            notificationManagerCompat.notify(notifId, notification);
+            notificationManagerCompat.notify(notificationId, notification);
         }
     }
 }

@@ -88,7 +88,7 @@ public class MovieRepo {
                 .addQueryParameter("language", language)
                 .addQueryParameter("primary_release_date.gte", date)
                 .addQueryParameter("primary_release_date.lte", date)
-                .addQueryParameter("region", "ID")
+                .addQueryParameter("region", "US|ID")
                 .build()
                 .getObjectObservable(GetMovieResponse.class)
                 .subscribeOn(Schedulers.io())
